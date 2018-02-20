@@ -3,8 +3,8 @@ import numpy as np
 from scipy.io import loadmat
 
 
-def vgg_face(param_path, input_maps):
-
+def load_vgg_face_model(param_path, input_maps):
+    # Load the matconvnet VGG face model
     data = loadmat(param_path)
 
     # read meta info
@@ -20,6 +20,8 @@ def vgg_face(param_path, input_maps):
     layers = data['layers']
     current = input_maps
     network = {}
+    # Initialize the layer counter
+    lyr_idx = 1
     for layer in layers[0]:
         name = layer[0]['name'][0][0]
         layer_type = layer[0]['type'][0][0]
@@ -48,7 +50,14 @@ def vgg_face(param_path, input_maps):
         elif layer_type == 'softmax':
             current = tf.nn.softmax(tf.reshape(current, [-1, len(class_names)]))
             print(name)
-
+        # Put layers in the CNN model
         network[name] = current
 
-    return network, average_image, class_names
+        # Only consider the first 33 layers as done in the MATLAB script
+        if (lyr_idx == 33):
+            break
+
+        # Increment the layer counter
+        lyr_idx += 1
+
+    return network, average_image
