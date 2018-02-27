@@ -21,7 +21,7 @@ def load_vgg_face_model(param_path, input_maps):
     current = input_maps
     network = {}
     # Initialize the layer counter
-    lyr_idx = 1
+    #lyr_idx = 1
     for layer in layers[0]:
         name = layer[0]['name'][0][0]
         layer_type = layer[0]['type'][0][0]
@@ -54,10 +54,10 @@ def load_vgg_face_model(param_path, input_maps):
         network[name] = current
 
         # Only consider the first 33 layers as done in the MATLAB script
-        if (lyr_idx == 33):
-            break
+        #if (lyr_idx == 33):
+        #    break
 
         # Increment the layer counter
-        lyr_idx += 1
+        #lyr_idx += 1
 
     return network, average_image
