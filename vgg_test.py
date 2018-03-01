@@ -8,6 +8,8 @@ import tensorflow as tf
 import numpy as np
 from scipy.misc import imread, imresize
 
+filename_list = np.load('DATA/filename.npy')
+
 # build the graph
 graph = tf.Graph()
 with graph.as_default():
