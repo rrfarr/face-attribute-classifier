@@ -97,8 +97,7 @@ with graph.as_default():
             feed_dict = {input_maps: [img]}
 
             # run the image through the layer and extract the feature vector
-            feature = session.run(layer, feed_dict)
-            feature = np.squeeze(feature,axis=(0,1))
+            feature = session.run(layer, feed_dict)[0]
 
         # Append the feature to the feature list
         feature_list.append(feature)
